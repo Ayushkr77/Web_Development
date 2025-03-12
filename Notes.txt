@@ -1,0 +1,45 @@
+let vs var vs const in JavaScript
+
+Feature	                var	                                            let	                        const
+Scope	            Function-scoped	                                Block-scoped	            Block-scoped
+Reassignable?	        ✅ Yes	                                    ✅ Yes	                    ❌ No
+Redeclarable?	    ✅ Yes (within the same scope)	                ❌ No	                    ❌ No
+Hoisting	    ✅ Hoisted (but initialized as undefined)	✅ Hoisted (but not initialized)	✅ Hoisted (but not initialized)
+Best Use Case	        Avoid using var	                      Use for variables that change	    Use for constants that don’t change
+
+
+
+
+1️⃣ Primitive Data Types (Stored by Value)
+Primitive types are immutable (cannot be changed) and stored directly in memory.
+
+Data Type	                Description                                 	Example
+Number	            Represents numbers (integers & floats)	                let x = 10;
+BigInt	        Handles large numbers beyond Number.MAX_SAFE_INTEGER	let bigNum = 123456789012345678901234567890n;
+String	            Sequence of characters (text)	                        let name = "Ayush";
+Boolean	           Represents true or false	                                let isCool = true;
+Undefined	    A variable declared but not assigned a value	            let y; // undefined
+Null	        Represents "no value" or empty object reference	            let z = null;
+Symbol (ES6)	    Unique, immutable value (used for object properties)	let sym = Symbol("id");
+
+
+
+2️⃣ Non-Primitive (Reference) Data Types (Stored by Reference)
+Reference types store memory addresses, not actual values.
+
+Data Type	        Description	                            Example
+Object	        Collection of key-value pairs	        let person = {name: "Ayush", age: 21};  (key will be string and value will be any data type)
+Array	        Ordered list of values	                let numbers = [1, 2, 3];
+Function	       A reusable block of code	            function greet() { console.log("Hello!"); }
+
+
+
+🔹 Summary of JavaScript Operators
+Category	        Operators
+Arithmetic	        +, -, *, /, %, **
+Assignment	        =, +=, -=, *=, /=, %=
+Comparison	        ==, ===, !=, !==, >, <, >=, <=
+Logical	                &&, `
+Bitwise	                &, `
+Ternary	            condition ? expr1 : expr2
+Type Checking	    typeof, instanceof
