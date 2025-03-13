@@ -1,3 +1,13 @@
+// Asynchronous refers to a process that does not block the execution of other tasks while waiting for an operation to complete. This allows the program to continue running other code instead of waiting for the task to finish.
+
+// Synchronous vs. Asynchronous
+// Feature	                        Synchronous	                                                                Asynchronous
+// Execution	Executes tasks one by one, blocking the next task until the current one finishes.	Executes tasks independently,       allowing other operations to run while waiting.
+// Performance	Slower, as it waits for each task to complete before moving on.	                    Faster, as multiple tasks can run at the same time.
+// Example	Reading a file line by line before proceeding.	                    Fetching data from a server while still handling user input.
+
+
+
 // Reading file asynchronously
 
 // Focus on the order of output of below given code

@@ -1,0 +1,1 @@
+d(3000).then(callback);
