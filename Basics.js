@@ -144,3 +144,57 @@ const arr2=arr.filter(x=>{
     return x.id!=3;
 })
 console.log(arr2);
+
+
+function sum(a,b) {
+    return a+b;
+}
+function sum1(a,b) {
+    return parseInt(a)+parseInt(b);
+}
+console.log(sum(20,30));
+console.log(sum("20",30));
+console.log(sum1("20",30));
+
+
+
+
+// Can also take a and b as input
+
+// For Browser(Using prompt) 
+// function add(a, b) {
+//     return a + b;
+// }
+// // Taking input from user
+// let a = prompt("Enter first number:");
+// let b = prompt("Enter second number:");
+// console.log(add(a, b));  // Might concatenate if input is a string
+
+
+// For Node.js (Using readline)
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+function add(a, b) {
+    return a + b;
+}
+function add1(a, b) {
+    return parseInt(a) + parseInt(b);
+}
+rl.question("Enter first number: ", (a) => {
+    rl.question("Enter second number: ", (b) => {
+        console.log("sum:", add(a, b));   // Might concatenate
+        console.log("sum1:", sum1(a, b)); // Ensures numeric addition
+        rl.close();
+    });
+});
+
+
+
+// Assignment 1
+// Try to create a promisified version of:
+// setTimeout
+// fetch
+// fs.readFile
