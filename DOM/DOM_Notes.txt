@@ -1,0 +1,12 @@
+The DOM (Document Object Model) is a programming interface for web documents. It represents the structure of a web page as a tree of objects, where each node corresponds to an element, attribute, or text content.
+
+Why DOM??
+The DOM abstracts the structure of the document into a tree of objects, allowing scripts to manipulate the content and structure dynamically. This abstraction enables more complex interactions and functionalities beyond just static HTML
+
+Static HTML
+As the name suggests, static HTML represents HTML that does not change
+
+Dynamic HTML
+Fetching, Updating, Deleting, Adding elements, More complex elements
+
+Fetching elements: querySelector, querySelectorAll, getElementById, getElementByClassName

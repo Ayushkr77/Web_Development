@@ -1,0 +1,59 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Todo1</h2>
+    <h2>Todo2</h2>
+    <h2>Todo3</h2>
+
+    <script src="DOM1.js"></script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+
+    <input type="text">
+    <button onclick="addToDo()">Add todo!</button>
+
+    <script>
+        let ctr = 1;
+        function deleteTodo(index) {
+            const element = document.getElementById("id" + index);
+            if (element) {
+                element.parentNode.removeChild(element);
+            }
+        }
+        function addToDo() {
+            const inputEl = document.querySelector("input");
+            const value = inputEl.value.trim();
+            if (value === "") {
+                alert("Please enter a valid todo!");
+                return;
+            }
+            const newDivEl = document.createElement("div");
+            newDivEl.setAttribute("id", "id" + ctr);
+            newDivEl.innerHTML = `
+                <div>${value}</div>
+                <button onclick="deleteTodo(${ctr})">Delete</button>
+            `;
+            document.body.appendChild(newDivEl);
+            inputEl.value = ""; // Clear input after adding
+            ctr++;
+        }
+    </script>
+</body>
+</html>
