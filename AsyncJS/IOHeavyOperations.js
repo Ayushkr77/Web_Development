@@ -18,6 +18,7 @@
 
 
 // Reading file
+// Make sure when u run this file u are in the current directory in terminal
 const fs = require('fs');   // The fs (File System) module in Node.js is used to interact with the file system. It allows reading, writing, updating, deleting, and managing files and directories.
 // Reading file synchronously
 const data = fs.readFileSync('a.txt', 'utf8');  // Also try without writing utf8. UTF-8 (Unicode Transformation Format - 8 bit) is the most common character encoding used for representing text. It supports all characters from different languages, including emojis. 
