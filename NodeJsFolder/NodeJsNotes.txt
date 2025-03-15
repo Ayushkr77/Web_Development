@@ -1,0 +1,84 @@
+Node.js is a runtime environment that allows you to run JavaScript outside the browser. It is built on Chrome's V8 JavaScript engine and enables developers to create server-side applications using JavaScript.
+
+Runtime: The environment where JS code is executed. server, browser, pn a small watch,...
+
+V8 engine: An open source JS engine developed by google. It is used to execute JS code in various environments, most notably in the Google Chrome browser.
+Mozilla has their own JS engine- SpiderMonkey. Microsoft has theirs- Chakra. And so on.
+
+Bun: Like Node.js, Bun is a runtime environment that allows you to execute JavaScript code on the server side.
+Bun is a modern JavaScript runtime designed to be a faster and more efficient alternative to Node.js. It is built on the JavaScriptCore engine (used by Safari) instead of V8 (used by Node.js and Deno).
+
+
+npm init -y
+This command is used in Node.js to quickly generate a package.json file with default values.
+
+
+Can run js file by using 
+node filename.js
+changing script in paackage.json(write start: node index.js) to run the file on start. And then npm start or npm run start
+
+
+npm Node Package Manager
+default package manager for Node.js
+It's a package manager for JS, primarily used for managing libraries and dependencies in Node.js projects. NPM allows developers to easily install, update, and manage packages of reusable code.
+package managers are an important concept in programming languages/runtimes. eg.: package manager of rust is cargo
+
+Uses of npm
+initializing a project: npm init
+running scripts: npm run test
+installing external dependencies: npm install chalk
+
+Common npm Commands
+Command	                        Description
+npm init -y         	        Quickly create package.json with default values
+npm install <package>	        Install a package locally
+npm install -g <package>	    Install a package globally
+npm uninstall <package>	        Remove a package
+npm update	                    Update all dependencies
+npm start	                    Run the start script from package.json
+
+
+
+node -ha
+node index.js -h
+
+
+
+
+Internal packages
+fs, path, http,...
+
+External packages
+express, chalk
+
+
+npm install      Install All Dependencies from package.json
+npm install package-name      Install a Specific Package
+
+
+Every external package is updated incrementally. A specific version looks like eg.: "chalk": "^5.3.0"
+The format is as MAJOR.MINOR.PATCH
+MAJOR: Incompatible changes that may break existing code.
+MINOR: New features added without breaking backward compatibility.
+PATCH: Bug fixes and small improvements without adding new features.
+
+
+
+Popular Node.js Frameworks
+Express.js – Lightweight and fast backend framework
+Nest.js – Scalable and enterprise-ready framework
+Socket.io – Real-time WebSockets for chat apps
+Next.js – React-based full-stack framework
+
+🔥 Why Use Node.js?
+✅ Fast & Lightweight
+✅ Great for API Development
+✅ Large Community Support
+✅ Used by Companies like Netflix, PayPal, LinkedIn
+
+ What Can You Build with Node.js?
+✅ Web Applications (Backend) – REST APIs, GraphQL APIs
+✅ Real-time Apps – Chat applications, Gaming apps
+✅ Streaming Services – Netflix, YouTube-like platforms
+✅ Command-line Tools – Custom CLI tools
+✅ IoT Applications – Control smart devices
