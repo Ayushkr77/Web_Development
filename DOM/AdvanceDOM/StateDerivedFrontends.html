@@ -1,0 +1,87 @@
+<!-- State Derived Frontends
+To make frontends easier to code, the concept of state came into the picture. U'll see more when we reach react.
+There are 3 jagron we need to understand:
+i) State- The variable part of an app
+ii) Components- How to render state on screen.
+iii) Taking the state and rendering it on the DOM based on the components. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <input type="text" id="taskInput">
+    <button onclick="addToDo()">Add Todo</button>
+    <div id="tasks"></div>
+
+    <script>
+        let todos = [];
+
+        // Adding a new To-Do
+        function addToDo() {
+            const inputElement = document.getElementById("taskInput");
+            const taskValue = inputElement.value.trim();
+
+            if (taskValue === "") return; // Prevent empty tasks
+
+            todos.push(taskValue);
+            inputElement.value = ""; // Clear input field
+            render();
+        }
+
+        // Deleting a To-Do
+        function deleteEl(index) {
+            todos.splice(index, 1); // Remove task at index
+            render();
+        }
+
+        // Editing a To-Do
+        function edit(index) {
+            const newTask = prompt("Edit task:", todos[index]);
+            if (newTask !== null && newTask.trim() !== "") {
+                todos[index] = newTask.trim();
+                render();
+            }
+        }
+
+        // Kind of React
+        // Rendering the To-Do List
+        function render() {
+            const tasksContainer = document.getElementById("tasks");
+            tasksContainer.innerHTML = ""; // Clear existing tasks
+
+            todos.forEach((task, index) => {
+                const taskDiv = document.createElement("div");
+                taskDiv.className = "taskitem";
+
+                // Creating elements
+                const counterSpan = document.createElement("span");
+                const taskSpan = document.createElement("span");
+                const deleteButton = document.createElement("button");
+                const editButton = document.createElement("button");
+
+                // Setting content
+                counterSpan.textContent = (index + 1) + ". ";
+                taskSpan.textContent = task;
+                deleteButton.textContent = "Delete";
+                editButton.textContent = "Edit";
+
+                // Adding event listeners
+                deleteButton.onclick = function () { deleteEl(index); };
+                editButton.onclick = function () { edit(index); };
+
+                // Appending elements
+                taskDiv.appendChild(counterSpan);
+                taskDiv.appendChild(taskSpan);
+                taskDiv.appendChild(editButton);
+                taskDiv.appendChild(deleteButton);
+                tasksContainer.appendChild(taskDiv);
+            });
+        }
+    </script>
+</body>
+</html>

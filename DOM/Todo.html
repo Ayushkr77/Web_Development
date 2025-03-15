@@ -50,7 +50,7 @@
                 <div>${value}</div>
                 <button onclick="deleteTodo(${ctr})">Delete</button>
             `;
-            document.body.appendChild(newDivEl);
+            document.body.appendChild(newDivEl);   // or document.querySelector("body").appendChild(newDivEl);   but not recommended
             inputEl.value = ""; // Clear input after adding
             ctr++;
         }
