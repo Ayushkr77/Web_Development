@@ -39,7 +39,7 @@ npm start	                    Run the start script from package.json
 
 
 
-node -ha
+node -h
 node index.js -h
 
 

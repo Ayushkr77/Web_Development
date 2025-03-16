@@ -1,0 +1,100 @@
+https://petal-estimate-4e9.notion.site/Domain-name-IP-f70d6d49ef104d9a9e8277d87f347184
+
+HTTP server in Node.js is basically a program that listens for incoming HTTP requests (like when someone visits your website) and sends back responses (like showing a webpage or some data).
+
+There are various other protocols that exist that let machines communicate with each other:
+1. Websockets
+2. WebRTC
+3. GRPC
+
+
+Domain name/IP
+ Domain names
+The way to reach a sever is through its `Domain name` . For example
+1. google.com
+2. app.100xdevs.com
+3. x.com
+
+ IPs
+Every domain that you see, actually has an underlying IP that it `resolves` to.
+You can check the ip by running the `ping` command.
+
+
+
+Ports
+In networking, **ports** are `logical` endpoints used by protocols to identify `specific processes`  running on a computer or server. They help direct network traffic to the correct application or service on a system.
+A port is like a doorway into a computer (or server) for network communication.
+The IP address tells you which machine to talk to.
+The port tells you which application/service on that machine to talk to.
+Think of a server like an apartment building (IP address), and ports are like apartment numbers (specific rooms or services inside that building).
+Each server has 65,535 ports available (numbered from 0 to 65535).
+Some ports are reserved for specific protocols/services.
+
+Common Ports You Should Know
+Port	        Service
+80	        HTTP (Web traffic)
+443	        HTTPS (Secure web traffic)
+22	        SSH (Secure shell/terminal)
+25	        SMTP (Sending emails)
+3306    	MySQL (Database server)
+3000	    Often used by Node.js dev servers
+8080	    Alternative HTTP (testing)
+
+If you run a Node.js server on 127.0.0.1:3000, only your own machine can access it via http://localhost:3000.
+
+
+
+
+Methods
+HTTP methods are used to specify the type of action that the client wants to perform on a resource on the server.
+Common methods
+1. GET -  Retrieve data from a server. (Get my TODOS)
+2. POST - Submit data to be processed by a server. (Create a TODO)
+3. PUT - Update or create a resource on the server (Update my todo)
+4. DELETE - Remove a resource from the server. (Delete my todo)
+
+
+
+
+Response
+The response represents what the server returns you `in response` to the request.
+It could be
+1. Plaintext data - Not used as often
+2. HTML - If it is a website
+3. JSON Data - If you want to fetch some data (user details, list of todos…)
+
+When you make a request to a server (using GET, POST, etc.), the server sends back an HTTP Response.
+This response tells the client two main things:
+What happened (success, error, etc.)
+The actual data or message
+
+What does an HTTP response contain?
+An HTTP response generally has 3 main parts: Status Code, Headers, Body.
+
+
+Status codes
+HTTP status codes are three-digit numbers returned by a server to indicate the outcome of a client’s request. They provide information about the status of the request and the server's response.
+200 series (Success)
+300 series (Redirection)
+400 series (Client Error)
+500 series (Server Error)
+
+
+Body
+In HTTP communications, the **body** (or **payload**) refers to the part of an HTTP message that contains the actual data being sent to the server.
+It is usually `JSON` data that is transferred to the server. Can also be HTML
+
+
+
+
+Routes
+In the context of HTTP, **routes** are paths or endpoints that define how incoming requests are handled by a server. Routing is a mechanism used to direct incoming HTTP requests to the appropriate handler functions or resources based on the URL path.
+
+
+
+
+
+Express
+Express.js is a minimal and flexible web framework for Node.js that helps you build web servers and APIs quickly and easily.
+Think of it as a toolbox that simplifies working with HTTP requests, responses, routes, and middleware.
+
