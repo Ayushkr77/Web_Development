@@ -1,3 +1,5 @@
+// Here below we are using express instead of http. U can also see http code(ask ChatGpt) and study properly the difference between http and express.
+
 const express = require('express')
 const app = express()  //  an instance of the Express application by calling the express() function
 app.get('/', function (req, res) {   // app.get() is used to handle GET requests to this route.

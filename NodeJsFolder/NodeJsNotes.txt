@@ -70,6 +70,11 @@ Nest.js – Scalable and enterprise-ready framework
 Socket.io – Real-time WebSockets for chat apps
 Next.js – React-based full-stack framework
 
+
+Express.js is a lightweight and flexible web framework for Node.js that helps you manage routes, handle HTTP requests/responses, middleware, and build RESTful APIs quickly.
+
+
+
 🔥 Why Use Node.js?
 ✅ Fast & Lightweight
 ✅ Great for API Development
@@ -82,3 +87,11 @@ Next.js – React-based full-stack framework
 ✅ Streaming Services – Netflix, YouTube-like platforms
 ✅ Command-line Tools – Custom CLI tools
 ✅ IoT Applications – Control smart devices
+
+
+
+
+Node.js (platform/runtime)
+   └── HTTP Module (built-in core module)
+         └── Express.js Framework (wraps the HTTP module)
+                 └── Middleware (concept used inside Express)
