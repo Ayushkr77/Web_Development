@@ -97,4 +97,10 @@ In the context of HTTP, **routes** are paths or endpoints that define how incomi
 Express
 Express.js is a minimal and flexible web framework for Node.js that helps you build web servers and APIs quickly and easily.
 Think of it as a toolbox that simplifies working with HTTP requests, responses, routes, and middleware.
+Express in nodejs, springboot in java
 
+
+npx serve
+When connected to same network, u can also fetch those things(folders,files) in that device.
+And also run any local host with the ip and same url, u can get same content there(in that device).
+Make sure u are connected with same network. 
