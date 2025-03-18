@@ -1,0 +1,46 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<body>
+  <div id="posts"></div>
+  <script>
+    async function fetchPosts() {
+      console.log("Before fetch");
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");  // there are more parameters also. If we dont pass anything as method then by default GET.
+      const data = await res.json();
+    //   document.getElementById("posts").innerHTML = data.title;  // or try data.body
+      document.getElementById("posts").innerHTML = JSON.stringify(data);
+      console.log(data.title);
+      console.log("After fetch");   // Here it is not so that first before fetch will be printed, then after fetch and then data.title. It is before fetch then title then after fetch. Bcz we are using async await not promises. This is how async await works. Remember async await is just syntactic sugar for promises
+    }
+
+    fetchPosts();
+  </script>
+</body>
+
+</html>
+ -->
+
+
+
+<!-- Using axios(external library) -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+</head>
+
+<body>
+  <div id="posts"></div>
+  <script>
+    async function fetchPosts() {
+      const res = await axios.get("https://jsonplaceholder.typicode.com/posts/1");  // or axios('https://jsonplaceholder.typicode.com/posts/1'); by default it will be get only
+      document.getElementById("posts").innerHTML = res.data.title;
+    }
+
+    fetchPosts();
+  </script>
+</body>
+
+</html>
