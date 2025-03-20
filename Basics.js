@@ -198,3 +198,36 @@ rl.question("Enter first number: ", (a) => {
 // setTimeout
 // fetch
 // fs.readFile
+
+
+
+
+
+
+// Map Function
+const arr1=[1,2,3,4,5];
+const transform=(i)=> {
+    return i*2;
+}
+// const arrMap=arr1.map((x)=>x*2);
+// const arrMap=arr1.map(transform);
+const arrMap=arr1.map((i)=> {
+    return i*2;
+})
+console.log(arrMap); 
+
+
+
+// Filter
+const arrN=[1,2,3,4,5,6];
+const check=(i)=> {
+    return i%2==0;
+}
+const arrAns=arrN.filter(check);
+console.log(arrAns);
+
+const arrS=["Ayush","Aman","Shresth"];
+const ansArr=arrS.filter((i)=> {
+    return i.startsWith("A");
+})
+console.log(ansArr);  
