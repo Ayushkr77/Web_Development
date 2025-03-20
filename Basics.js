@@ -231,3 +231,144 @@ const ansArr=arrS.filter((i)=> {
     return i.startsWith("A");
 })
 console.log(ansArr);  
+
+
+
+
+
+
+
+
+
+
+// Axios and Fetch
+// 2 popular ways to hit a backend server and get response
+// Axios is a library that makes it easy to send HTTP requests
+// Fetch is a built in function in JavaScript that can be used to send HTTP requests
+
+// 1. Fetch returns a Promise of a Response object: The fetch() method returns a Promise that resolves to a Response object, which you must process manually (e.g., using .json() or .text() to read the body). So fetch() gives you the raw Response, and you extract the actual data yourself.
+// 2. Axios returns a Promise of a data object (already processed): The axios.get() method returns a Promise that resolves to a response object where the data is already parsed (no need to manually call .json()).
+
+
+// FETCH
+// Using promise
+function main() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+    .then(async (response)=> {
+        const data=await response.json();
+        console.log(data);
+        console.log(data.length);
+    })
+}
+// Same above function Using async/await
+async function main1() {
+    const response=await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data=await response.json();
+    console.log(data);
+    console.log(data.length);
+}
+
+// POST,... other methods in fetch. Here in below code instead the mehid is POST but the thing we are doing is of GET only bcz we are not sending any data to the server. Not recommended bcz always use GET for fetching data and use POST when you’re creating/sending data to the server
+async function main2() {
+    const response=await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method:"POST"  // GET by default
+    });
+    const data=await response.json();
+    console.log(data);
+    console.log(data.length);
+}
+
+// Posting data to server. POST
+// Couldnt understand properly
+async function main3() {
+    const response=await fetch("https://brainlyapi.surajv.me/api/v1/user/signup", {
+        method:"POST",  // GET by default
+        headers:{
+            "Content-Type":"application/json",
+            "Accept":"application/json",
+        },
+        body:JSON.stringify({    // body: only should work but error find out why
+            "username":"ayush",
+            "password":"surajgmailcom",
+        })
+    });
+    const data=await response.text();
+    console.log(data);
+    console.log(data.length);
+}
+
+// main();
+// main1();
+// main2();
+// main3();
+
+
+// AXIOS
+const axios = require('axios');
+// Using promise
+function main4() {
+    axios.get("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => {
+            const data = response.data;
+            console.log(data);
+            console.log(data.length);
+        })
+        .catch((error) => console.error(error));
+}
+
+// Using async/await
+async function main5() {
+    try {
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+        const data = response.data;
+        console.log(data);
+        console.log(data.length);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// POST request but acting like a GET (no data sent)
+async function main6() {
+    try {
+        const response = await axios.post("https://jsonplaceholder.typicode.com/posts");
+        const data = response.data;
+        console.log(data);
+        console.log(Object.keys(data).length); // using Object.keys to get count
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Actual POST with data
+async function main7() {
+    try {
+        const response = await axios.post("https://brainlyapi.surajv.me/api/v1/user/signup", 
+            {   // 2nd parameter is data, no need to write body: like in fetch
+                username: "ayushKrSinha",
+                password: "surajgmailcom"
+            }, 
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        const data = response.data;
+        console.log(data);
+        if (typeof data === "object") {
+            console.log(Object.keys(data).length);
+        } else {
+            console.log(data.length);
+        }
+    } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
+    }
+}
+
+// main4();
+// main5();
+// main6();
+main7();
