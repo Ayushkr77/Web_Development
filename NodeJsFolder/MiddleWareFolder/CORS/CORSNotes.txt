@@ -1,0 +1,26 @@
+cors - Cross origin resource sharing
+Cross-Origin Resource Sharing (CORS) is a security feature implemented by web browsers that controls how resources on a web server can be requested from another domain. It's a crucial mechanism for managing `cross-origin` requests and ensuring secure interactions between `different origins` on the web.
+
+
+What is an Origin?
+An origin is made up of:
+i) Protocol (http or https)
+ii) Domain (example.com)
+iii) Port (like :3000 or :80)
+So, http://example.com:3000 and https://example.com are different origins.
+
+
+Why is CORS needed?
+Browsers want to protect users. Without CORS, a malicious website could easily make requests to another site where you might be logged in and steal sensitive data (like banking info or private APIs).
+For example:
+Your website runs on http://mywebsite.com
+Your API runs on http://api.myserver.com
+By default, your website cannot fetch data from the API on a different domain unless the API says, "Hey, it's okay!" via CORS headers.
+
+
+
+Key Points
+CORS is not a language feature, it’s a browser policy.
+It protects users from cross-site attacks.
+CORS is configured on the server.
+Not needed for same-origin requests.
