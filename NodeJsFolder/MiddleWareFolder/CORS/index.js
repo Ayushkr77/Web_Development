@@ -18,7 +18,7 @@ app.use(express.json());
 // app.use(cors()); // enable CORS for all requests
 // Allow requests ONLY from a specific frontend origin
 app.use(cors({  
-    origin: 'http://127.0.0.1:5500' // will only accept from this origin, not all. cannot write http://localhost:5500
+    origin: 'http://127.0.0.1:5500' // will only accept from this origin, not all. cannot write http://localhost:5500. Technically, both localhost and 127.0.0.1 refer to your local machine, but the browser treats them as different "origins" due to how CORS and the Same-Origin Policy work.
 }));
 
 

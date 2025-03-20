@@ -10,6 +10,12 @@ iii) Port (like :3000 or :80)
 So, http://example.com:3000 and https://example.com are different origins.
 
 
+In CORS, "origin" includes:
+Protocol (http or https)
+Domain / IP (e.g., localhost or 127.0.0.1)
+Port (e.g., 3000, 5500)
+
+
 Why is CORS needed?
 Browsers want to protect users. Without CORS, a malicious website could easily make requests to another site where you might be logged in and steal sensitive data (like banking info or private APIs).
 For example:
@@ -24,3 +30,12 @@ CORS is not a language feature, it’s a browser policy.
 It protects users from cross-site attacks.
 CORS is configured on the server.
 Not needed for same-origin requests.
+
+
+
+URL: https://blog.example.com
+- Domain Name = example.com
+- Host Name   = blog.example.com
+- Subdomain   = blog
+
+U can also search the difference between domain, hostname and subdomain on chatGpt.
