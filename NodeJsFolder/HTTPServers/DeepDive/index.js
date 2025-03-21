@@ -10,7 +10,14 @@
 // - Finish the signin endpoint. It should generate a token for the user and put it in the `in memory` variable for that user
 
 
+// https://chatgpt.com/c/67dd2aeb-5f9c-8012-a716-b8cdd31f3818
+
 const express=require("express");
+
+// replacing token logic with jwt
+const jwt=require("jsonwebtoken");
+const JWT_SECRET = "USER_APP";    // JWT_SECRET is your secret key for signing and verifying JWTs
+
 const app=express();
 
 const users=[];
@@ -36,6 +43,7 @@ app.post("/signup",(req,res)=> {
     res.send({
         message: "You have signed up"
     })
+    console.log(users);
 })
 
 app.post("/signin",(req,res)=> {
@@ -45,8 +53,12 @@ app.post("/signin",(req,res)=> {
         u.username===username && u.password===password
     )
     if(user) {
-        const token=generateToken();
-        user.token=token;
+        // const token=generateToken();
+        const token = jwt.sign({   // replacing token logic with jwt.   .sign se humlog username ko encode kr rhe h jwt mei.   only the username is encoded inside the token—not the password,   Passwords should never be sent back in responses. Even if they were inside the JWT, it's a bad idea to expose passwords in API responses or tokens.
+            username: user.username
+        }, JWT_SECRET);
+
+        // user.token=token;   // now this is not required bcz the above token only has all the information as username is already encoded inside it
         res.json({
             username,
             password,
@@ -57,6 +69,36 @@ app.post("/signin",(req,res)=> {
     else {
         res.status(403).send({
             message: "Invalid username or password"
+        })
+    }
+})
+
+// Creating an authenticated endpoint
+// Use postman and send via headers the key as token and value as token value u get while post in signin
+// Why cant we search normally in browser on /me route and if we can do how?
+app.get("/me",function(req,res) {
+    const token=req.headers.token;  // jwt
+
+    const decodedInfo=jwt.verify(token,JWT_SECRET);   // {username:"aysush"}   .verify se humlog jwt ko wapas encode kr rhe h username nikalne k liye
+    const username=decodedInfo.username;
+
+    // const user=users.find(u=>
+    //     u.token===token
+    // );
+    // now above lines are commented bcz we now dont need to hit the database or global variable. We can directly do search with the help of username
+    const user=users.find(u=>
+        u.username===username
+    );
+
+    if(user) {
+        res.json({
+            username:user.username,
+            password:user.password
+        })
+    }
+    else {
+        res.json({
+            message: "Token invalid"
         })
     }
 })

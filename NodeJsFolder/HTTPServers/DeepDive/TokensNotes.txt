@@ -1,0 +1,22 @@
+Tokens = Temporary Access Keys
+In simple terms:
+A token is a small piece of data (a string) that is given to you after you successfully log in.
+It is your proof of authentication, like an "entry pass" 🪪.
+
+
+# Tokens vs JWTs
+There is a problem with using `stateful` tokens.
+ Stateful
+By stateful here, we mean that we need to store these tokens in a variable right now (and eventually in a database). 
+ Problem
+The problem is that we need to `send a request to the database` every time the user wants to hit an `authenticated endpoint`.  i.e., where we are doing users.find (See index.js)
+
+
+
+# JWTs
+JWTs, or JSON Web Tokens, are a compact and self-contained way to represent information between two parties. They are commonly used for authentication and information exchange in web applications.
+JWTs are Stateless: JWTs contain all the information needed to authenticate a request, so the server doesn’t need to store session data. All the `data` is stored in the token itself.
+
+
+jwt.sign() = Encoding + Token Generation.  lock & send data securely
+jwt.verify() = Decoding + Validating.   unlock & validate received token
