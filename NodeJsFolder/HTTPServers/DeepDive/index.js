@@ -16,7 +16,7 @@ const express=require("express");
 
 // replacing token logic with jwt
 const jwt=require("jsonwebtoken");
-const JWT_SECRET = "USER_APP";    // JWT_SECRET is your secret key for signing and verifying JWTs
+const JWT_SECRET = "USER_APP";    // JWT_SECRET is your secret key for signing and verifying JWTs. U can give value anything
 
 const app=express();
 
@@ -79,7 +79,7 @@ app.post("/signin",(req,res)=> {
 app.get("/me",function(req,res) {
     const token=req.headers.token;  // jwt
 
-    const decodedInfo=jwt.verify(token,JWT_SECRET);   // {username:"aysush"}   .verify se humlog jwt ko wapas encode kr rhe h username nikalne k liye
+    const decodedInfo=jwt.verify(token,JWT_SECRET);   // {username:"aysush"}   .verify se humlog jwt ko wapas encode kr rhe h username nikalne k liye.  Find out why verify is used here and not decode
     const username=decodedInfo.username;
 
     // const user=users.find(u=>
