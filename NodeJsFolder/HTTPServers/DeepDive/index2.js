@@ -1,6 +1,3 @@
-// Assignment
-// Can you try creating a middleware called auth that verifies if a user is logged in and ends the request early if the user isn’t logged in?
-
 const express=require("express");
 
 // replacing token logic with jwt
@@ -60,7 +57,7 @@ function auth(req,res,next) {   // middleware
     const token=req.headers.token;
     const decodedData=jwt.verify(token,JWT_SECRET);
     if(decodedData.username) {
-        req.username=decodedData.username;    // Now, req.username will be available in /me route!
+        req.username=decodedData.username;
         next();
     }
     else res.json({
@@ -82,6 +79,10 @@ app.get("/me", logger, auth, function(req,res) {    // using 2 middlewares
     })
 })
 
-app.listen(3000,()=> {
+app.get("/",(req,res)=> {   // Serves index2.html when you visit http://localhost:3000/.
+    res.sendFile(__dirname + "/index2.html");
+})
+
+app.listen(3000,()=>{
     console.log("Server is running on port 3000");
 })
