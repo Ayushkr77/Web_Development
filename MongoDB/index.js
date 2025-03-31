@@ -11,10 +11,18 @@
 
 
 
+// Learning Hashing. Salt, bcrypt,...
+// https://petal-estimate-4e9.notion.site/Hashing-password-b821927535394ab6aec423eb74234975
+// Hashing is different from encoding like if we are hashing the password, we cant get back the password. In the DB, we dont store directly the passwords, we'll store the hashed passwords and will also use salt. Salt: A popular approach to hashing passwords involves using a hashing algorithm that incorporates a salt—a random value added to the password before hashing. This prevents attackers from using precomputed tables (rainbow tables) to crack passwords. Bcrypt: It is a cryptographic hashing algorithm designed for securely hashing passwords. Developed by Niels Provos and David Mazières in 1999, bcrypt incorporates a salt and is designed to be computationally expensive, making brute-force attacks more difficult. 
+// Now u'll think when the user will signin, then he/she will enter the password only, but in DB, hashed password is stored so we'll not be able to compare. So, we'll again hash the password entered by the user and compare it with the hashed password in the DB. This is called hashing.
+
+
 const express = require("express");
 const mongoose = require("mongoose");   //  Library to connect and interact with MongoDB.
 const { UserModel, TodoModel } = require("./db");
 const jwt = require("jsonwebtoken");  // JWT (JSON Web Token) is a compact, self-contained token used for authentication. It consists of three parts: Header – Defines the type of token and hashing algorithm. Payload – Contains user-related data (e.g., userId). Signature – Ensures the integrity of the token using a secret key.
+const bcrypt = require("bcrypt");  //  Library to hash and compare passwords.
+const {z} = require("zod");   //  a validation library used to validate and enforce data types
 
 const JWT_SECRET = "s3cret";
 
@@ -43,30 +51,78 @@ console.log("After DB connection");
 
 
 
-app.post("/signup", async function(req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
-    const name = req.body.name;
-    const user=await UserModel.create({  // Creates a new user in the users collection.
-        email: email,
-        password: password,
-        name: name
-    });
-    res.json({
-        message: "You are signed up",
-        user: user
-    })
+app.post("/signup", async function (req, res) {
+    try {
+        const { email, password, name } = req.body;   // or const email=req.body.email and so on...
+
+        // Input validation(Must read below commented lines, dont skip)
+        // if (typeof email !== "string" || !email.includes("@")) {
+        //     return res.status(400).json({ 
+        //         message: "Invalid email" 
+        //     });
+        //     // return;  // the code will never reach here bcz above we are not just doing res.json but we are doing res.json(). So no need to write return here
+        // }
+
+        // Input Validation using zod
+        const reqBody = z.object({   // defines a schema using Zod that ensures req.body contains: email → A string, between 3 to 50 characters, must be a valid email. password → A string, minimum 8 characters. name → A string, between 3 to 30 characters
+            email: z.string().min(3).max(50).email(),
+            password: z.string().min(8),   // Strict Password Validation:      password: z.string().min(6).refine((password) => /[A-Z]/.test(password), {message: "Required atleast one uppercase character"}).refine((password) => /[a-z]/.test(password), {message: "Required atleast one lowercase character"}).refine((password) => /[0-9]/.test(password), {message: "Required atleast one number"}).refine((password) => /[!@#$%^&*]/.test(password), {message: "Required atleast one special character"})
+            name: z.string().min(3).max(30),
+        }).strict(); // Prevents unexpected extra fields. It means that in the body if u send anything extra apart from email, password and name, then it will show error
+
+
+        // const parsedData = reqBody.parse(req.body);  // .parse() does the same validation, but it throws an error if validation fails. You would need a try-catch block to handle errors.
+        const parsedDataWithSuccess = reqBody.safeParse(req.body);  // safeParse() validates req.body against the schema. It does not throw an error (unlike .parse(), which throws on failure). Instead, it returns an object. See at last of this file what it returns in the object.
+        if (!parsedDataWithSuccess.success) {
+            return res.status(400).json({ 
+                message: "Invalid email, password or name",
+                errors: parsedDataWithSuccess.error.issues
+            });
+        }
+
+        // hashing the password with a salt rounds value of 5
+        const hashedPassword = await bcrypt.hash(password, 5);
+        console.log(hashedPassword);
+
+        // Creating a new user
+        const user = await UserModel.create({
+            email,
+            password: hashedPassword,
+            name
+        });
+
+        res.status(201).json({
+            message: "You are signed up",
+            user: user
+        });
+    } 
+    catch (error) {
+        console.error("Signup Error:", error);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
 });
+
+
 
 
 app.post("/signin", async function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
-    const response = await UserModel.findOne({   // Finds user by email & password in the database. So, in the postman while sign in even if u change name and keep email password same, that will generate token
+    const response = await UserModel.findOne({   // Finds user by email & password(now only email as we are later checking hashedPassword) in the database. So, in the postman while sign in even if u change name and keep email password same, that will generate token
         email: email,
-        password: password,
     });
-    if (response) {
+    if(!response) {
+        res.status(403).json({
+            message: "User doesnt exist"
+        })
+    }
+
+    const matchPassword=await bcrypt.compare(password,response.password);
+
+    if (matchPassword) {
         const token = jwt.sign({  // This token can be sent to the backend in the Authorization header to verify the user's identity.
             id: response._id.toString()  // response._id // Output: new ObjectId("6552796320aa63b363b5f6ef") response._id.toString() // Output: "6552796320aa63b363b5f6ef".      The id key is used to store the user’s unique identifier.  This id will be used in auth muddleware
         },JWT_SECRET)
@@ -157,3 +213,33 @@ app.listen(3000,()=>{
 
 // ✨ Key Takeaway
 // 👉 Whenever you’re dealing with a database, always use async/await to ensure the data is ready before moving forward!
+
+
+
+
+// .safeParse()  returns an object:
+
+// Case 1: Validation Passes (success: true)
+// {
+//     "success": true,
+//     "data": {
+//       "email": "test@example.com",
+//       "password": "password123",
+//       "name": "Ayush"
+//     }
+//   }
+  
+// Case 2: Validation Fails (success: false)
+// {
+//     "success": false,
+//     "error": {
+//       "issues": [
+//         {
+//           "code": "invalid_string",
+//           "message": "Invalid email",
+//           "path": ["email"]
+//         }
+//       ]
+//     }
+//   }
+  
