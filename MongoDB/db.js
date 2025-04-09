@@ -4,7 +4,7 @@
 // A schema defines the structure of documents in a MongoDB collection.
 // A model allows us to interact with the corresponding MongoDB collection using JavaScript.
 
-
+// Learn creating references
 
 const mongoose = require("mongoose");
 
